@@ -15,7 +15,9 @@ Try{
     $jsonOutput = Invoke-RestMethod -Uri https://api.monzo.com/accounts -Headers $Header
     $account_id = $jsonOutput.accounts[0].id
     $jsonOutput = Invoke-RestMethod -Uri https://api.monzo.com/balance?account_id=$account_id -Headers $Header
-    $balance = "£" + $jsonOutput.balance/100
+    $balance = "£" + ($jsonOutput.balance/100).tostring("#.#")
+    # Uncomment below line to show balance without pence.
+    # $balance = "£" + ($jsonOutput.balance/100).tostring("#")
     $appIcon = 15490
 } Catch {
     # Write to the Azure Functions log stream if error occurs.
